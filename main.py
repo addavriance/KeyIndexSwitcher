@@ -48,12 +48,10 @@ class IndexConverter:
             self.shortcut_pressed = False
 
     def type_char(self, char):
-        self.keyboard.press(char)
-        self.keyboard.release(char)
+        self.keyboard.type(char)
 
     def remove_char(self):
-        self.keyboard.press(Key.backspace)
-        self.keyboard.release(Key.backspace)
+        self.keyboard.tap(Key.backspace)
 
     def handle_key_press(self, key, index_mapping):
         try:
