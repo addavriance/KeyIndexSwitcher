@@ -1,18 +1,18 @@
 from constants import UPPER_INDICES, LOWER_INDICES, UPPER_KEY, LOWER_KEY
 
-from pynput.keyboard import Key, Controller, Listener
+from pynput.keyboard import Key, Controller, Listener, KeyCode
 from enum import Enum
 
 
 class IndexMode(Enum):
-    Base = 0,
-    Upper = 1,
-    Lower = 2,
+    Base = 0
+    Upper = 1
+    Lower = 2
 
 
 class IndexConverter:
     def __init__(self):
-        self.mode: IndexMode = IndexMode.Base
+        self.mode = IndexMode.Base
 
         self.keyboard = Controller()
 
@@ -29,7 +29,7 @@ class IndexConverter:
         elif key == self.lower_key:
             self.mode = IndexMode.Lower if self.mode != IndexMode.Lower else IndexMode.Base
 
-    def on_press(self, key):
+    def on_press(self, key: Key | KeyCode):
         if key in self.shortcut_keys:
             self.shortcut_pressed = True
 
@@ -53,7 +53,7 @@ class IndexConverter:
     def remove_char(self):
         self.keyboard.tap(Key.backspace)
 
-    def handle_key_press(self, key, index_mapping):
+    def handle_key_press(self, key: Key | KeyCode, index_mapping):
         try:
             char = key.char
         except AttributeError:
